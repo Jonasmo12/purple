@@ -13,10 +13,12 @@
   <version>0.0.1-SNAPSHOT</version>  
   <name>purple</name>  
   <description>Purple project for Discerned</description>  
+  <packaging>war</packaging>
   <properties> 
     <java.version>11</java.version>  
     <maven.compiler.source>11</maven.compiler.source>  
     <maven.compiler.target>11</maven.compiler.target> 
+    
   </properties>  
   <dependencies> 
     <dependency> 
