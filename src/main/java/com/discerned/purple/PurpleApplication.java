@@ -16,7 +16,7 @@ public class PurpleApplication {
 
 	@RequestMapping("")
 	public String hello() {
-		return "hello from azure for discerned";
+		return "hello from azure vm for discerned";
 	}
 
 }
