@@ -1,4 +1,4 @@
-package com.discerned.discerneded.diagnosed;
+package com.discerned.purple.diagnosed;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,40 +1,41 @@
-package com.discerned.discerneded.medication;
+package com.discerned.purple.medication;
 
-import com.discerned.discerneded.patient.Patient;
-import com.discerned.discerneded.patient.PatientRepository;
+import com.discerned.purple.patient.Patient;
+import com.discerned.purple.patient.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+import java.util.Set;
 
-@Controller
+@RestController
 public class MedicationController {
     @Autowired
     private final MedicationService medicationService;
     @Autowired
     private final PatientRepository patientRepository;
 
-    public MedicationController(MedicationService medicationService, PatientRepository patientRepository) {
+    public MedicationController(
+            MedicationService medicationService,
+            PatientRepository patientRepository
+    ) {
         this.medicationService = medicationService;
         this.patientRepository = patientRepository;
     }
 
-    @GetMapping("/patient/{patientId}/medication")
-    public String getMedicationForm(@PathVariable("patientId") Long patientId, Model model) {
+    @GetMapping("/patient/{patientId}/medication/")
+    public Set<Medication> getMedications(
+            @PathVariable("patientId") Long patientId
+    ) {
         Patient patient = patientRepository.findById(patientId).get();
-        model.addAttribute("patient", patient);
-        model.addAttribute("medication", new Medication());
-        return "medication.html";
+        return patient.getMedications();
     }
 
     @PostMapping("/patient/{patientId}/medication/save")
-    public String saveMedication(@PathVariable("patientId") Long patientId, @ModelAttribute Medication medication) {
-        Patient patient = patientRepository.findById(patientId).get();
-        medication.setPatient(patient.getId());
+    public Medication saveMedication(
+            @PathVariable("patientId") Long patientId,
+            @RequestBody Medication medication
+    ) {
+        medication.setPatient(patientId);
         medicationService.saveMedication(medication);
-        return "redirect:/patient";
+        return medication;
     }
 }

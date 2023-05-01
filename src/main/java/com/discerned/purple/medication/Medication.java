@@ -1,11 +1,10 @@
-package com.discerned.discerneded.medication;
+package com.discerned.purple.medication;
 
-import jakarta.persistence.*;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.time.Duration;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
@@ -14,7 +13,7 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 public class Medication {
-    @Id
+    @javax.persistence.Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "Id", updatable = false)
     private Long Id;

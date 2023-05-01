@@ -1,0 +1,22 @@
+services:
+  discerneded:
+    image: postgres:12
+    restart: always
+    environment:
+      - POSTGRES_USER=discerneded
+      - POSTGRES_PASSWORD=discerneded
+      - POSTGRES_DB=discerneded
+    ports:
+      - "5432:5432"
+    volumes:
+      - data:/var/lib/postgresql/data
+  pg-admin:
+    image: dpage/pgadmin4:6.0
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@email.com
+      - PGADMIN_DEFAULT_PASSWORD=admin
+      - PGADMIN_LISTEN_PORT=5050
+    ports:
+      - "5050:5050"
+volumes:
+  data:

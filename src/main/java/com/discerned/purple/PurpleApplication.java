@@ -12,7 +12,7 @@ public class PurpleApplication extends SpringBootServletInitializer {
     protected SpringApplicationBuilder configure(SpringApplicationBuilder springApplicationBuilder) {
 		return springApplicationBuilder.sources(PurpleApplication.class);
 	}
-
+	
 	public static void main(String[] args) {
 		SpringApplication.run(PurpleApplication.class, args);
 	}

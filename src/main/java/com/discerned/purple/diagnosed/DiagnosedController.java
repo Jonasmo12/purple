@@ -1,47 +1,44 @@
-package com.discerned.discerneded.diagnosed;
+package com.discerned.purple.diagnosed;
 
-import com.discerned.discerneded.patient.Patient;
-import com.discerned.discerneded.patient.PatientRepository;
+import com.discerned.purple.patient.Patient;
+import com.discerned.purple.patient.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+import java.util.Set;
+
+@RestController
 public class DiagnosedController {
     @Autowired
     private final DiagnosedService diagnosedService;
     @Autowired
     private final PatientRepository patientRepository;
 
-    public DiagnosedController(DiagnosedService diagnosedService, PatientRepository patientRepository) {
+    public DiagnosedController(
+            DiagnosedService diagnosedService,
+            PatientRepository patientRepository
+    ) {
         this.diagnosedService = diagnosedService;
         this.patientRepository = patientRepository;
     }
 
     @GetMapping("/patient/{patientId}/diagnosed")
-    public String getDiagnosed(
-            @PathVariable("patientId") Long patientId,
-            Model model
+    public Set<Diagnosed> getDiagnoses(
+            @PathVariable("patientId") Long patientId
     ) {
         Patient patient = patientRepository.findById(patientId).get();
-        model.addAttribute("diagnosed", new Diagnosed());
-        model.addAttribute("patient", patient);
-
-        return "diagnosed.html";
+        return patient.getDiagnoses();
     }
 
     @PostMapping("/patient/{patientId}/diagnosed/save")
-    public String saveDiagnosed(
+    public Diagnosed saveDiagnosed(
             @PathVariable("patientId") Long patientId,
-            @ModelAttribute Diagnosed diagnosed
+            @RequestBody Diagnosed diagnosed
     ) {
-        Patient patient = patientRepository.findById(patientId).get();
-        diagnosed.setPatient(patient.getId());
+        diagnosed.setPatient(patientId);
         diagnosedService.saveDiagnosed(diagnosed);
-        return "redirect:/patient";
+        return diagnosed;
     }
 }

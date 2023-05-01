@@ -1,10 +1,12 @@
-package com.discerned.discerneded.emergency;
+package com.discerned.purple.emergency;
 
-import com.discerned.discerneded.patient.Patient;
-import jakarta.persistence.*;
+import com.discerned.purple.patient.Patient;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import javax.persistence.*;
 
 @Entity
 @Table(name = "Emergency")
@@ -12,7 +14,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class Emergency {
-    @Id
+    @javax.persistence.Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", updatable = false)
     private Long Id;

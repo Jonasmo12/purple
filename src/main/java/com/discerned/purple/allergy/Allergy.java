@@ -1,14 +1,10 @@
-package com.discerned.discerneded.allergy;
+package com.discerned.purple.allergy;
 
-import com.discerned.discerneded.patient.Patient;
-import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.time.Clock;
+import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Objects;
 
 @Entity(name = "Allergy")
 @Table(name = "allergy")

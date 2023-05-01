@@ -1,9 +1,9 @@
 package com.discerned.purple.patient;
 
-import com.discerned.discerneded.allergy.Allergy;
-import com.discerned.discerneded.diagnosed.Diagnosed;
-import com.discerned.discerneded.emergency.Emergency;
-import com.discerned.discerneded.medication.Medication;
+import com.discerned.purple.allergy.Allergy;
+import com.discerned.purple.diagnosed.Diagnosed;
+import com.discerned.purple.emergency.Emergency;
+import com.discerned.purple.medication.Medication;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -25,8 +25,7 @@ public class Patient {
     @Column(
             updatable = false,
             name = "patientID",
-            unique = true,
-            columnDefinition = "TEXT"
+            unique = true
     )
     private UUID patientID;
     private String appUserRole;
@@ -59,7 +58,7 @@ public class Patient {
         name = "patient_id", 
         referencedColumnName = "id"
     )
-    private Set<Allergy> allergies;
+    private Set<Allergy> allergies = new HashSet<>();
     @OneToMany(
         cascade = CascadeType.ALL, 
         fetch = FetchType.EAGER
@@ -68,7 +67,7 @@ public class Patient {
         name = "patient_id", 
         referencedColumnName = "id"
     )
-    private Set<Medication> medications;
+    private Set<Medication> medications = new HashSet<>();
     @OneToMany(
         cascade = CascadeType.ALL, 
         fetch = FetchType.EAGER
@@ -77,7 +76,7 @@ public class Patient {
         name = "patient_id", 
         referencedColumnName = "id"
     )
-    private Set<Diagnosed> diagnoses;
+    private Set<Diagnosed> diagnoses = new HashSet<>();
 
     public Patient(
             String appUserRole,
@@ -94,6 +93,7 @@ public class Patient {
             String roleUser,
             String gender,
             LocalDate dob,
+            Integer age,
             String username,
             String password,
             String phone
@@ -102,65 +102,9 @@ public class Patient {
         this.appUserRole = roleUser;
         this.gender = gender;
         this.dob = dob;
+        this.age = age;
         this.username = username;
         this.password = password;
-        this.phone = phone;
-    }
-
-    public Long getId() {
-        return Id;
-    }
-
-    public UUID getPatientID() {
-        return patientID;
-    }
-
-    public String getAppUserRole() {
-        return appUserRole;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    public LocalDate getDob() {
-        return dob;
-    }
-
-    public void setDob(LocalDate dob) {
-        this.dob = dob;
-    }
-
-    public Integer getAge() {
-        Integer calculatedAge = LocalDate.now().getYear() - getDob().getYear();
-        return calculatedAge;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-
-    public void setAppUserRole(String appUserRole) {
-        this.appUserRole = appUserRole;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setPatientID(UUID patientID) {
-        this.patientID = patientID;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
         this.phone = phone;
     }
 
@@ -188,13 +132,6 @@ public class Patient {
         this.diagnoses = diagnoses;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
 //    @Override
 //    public boolean isAccountNonExpired() {

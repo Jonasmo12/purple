@@ -1,5 +1,6 @@
-package com.discerned.discerneded.emergency;
+package com.discerned.purple.emergency;
 
+import com.discerned.purple.patient.Patient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +17,12 @@ public class EmergencyService {
         emergencyRepository.save(emergency);
     }
 
-    public void findEmergencyById(Long emergencyId) {
+    public Long findEmergencyById(Long emergencyId) {
         emergencyRepository.findById(emergencyId);
+        return emergencyId;
+    }
+
+    public void deleteEmergencyContact(Long emergency) {
+        emergencyRepository.deleteById(emergency);
     }
 }

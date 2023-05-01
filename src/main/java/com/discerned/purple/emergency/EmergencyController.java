@@ -1,43 +1,68 @@
-package com.discerned.discerneded.emergency;
+package com.discerned.purple.emergency;
 
-import com.discerned.discerneded.patient.Patient;
-import com.discerned.discerneded.patient.PatientRepository;
-import org.springframework.stereotype.Controller;
+import com.discerned.purple.patient.Patient;
+import com.discerned.purple.patient.PatientRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
 import java.util.Set;
 
-@Controller
+@RestController
 public class EmergencyController {
+    @Autowired
     private final EmergencyService emergencyService;
+    @Autowired
     private final PatientRepository patientRepository;
+    @Autowired
+    private final EmergencyRepository emergencyRepository;
 
-    public EmergencyController(EmergencyService emergencyService, PatientRepository patientRepository) {
+    public EmergencyController(EmergencyService emergencyService, PatientRepository patientRepository, EmergencyRepository emergencyRepository) {
         this.emergencyService = emergencyService;
         this.patientRepository = patientRepository;
+        this.emergencyRepository = emergencyRepository;
     }
 
+
     @GetMapping("/patient/{patientId}/emergency")
-    public String getEmergency(@PathVariable("patientId") Long patientId, Model model) {
+    public Set<Emergency> getEmergencies(
+            @PathVariable("patientId") Long patientId
+    ) {
         Patient patient = patientRepository.findById(patientId).get();
-
-        model.addAttribute("emergency", new Emergency());
-        model.addAttribute("patient", patient);
-
-        return "emergency.html";
+        return patient.getEmergencies();
     }
 
     @PostMapping("/patient/{patientId}/emergency/save")
-    public String saveEmergency(
+    public Emergency saveEmergency(
             @PathVariable("patientId") Long patientId,
-            @ModelAttribute Emergency emergency
+            @RequestBody Emergency emergency
     ) {
-        Patient patient = patientRepository.findById(patientId).get();
-
-        emergency.setPatient(patient.getId());
+        emergency.setPatient(patientId);
         emergencyService.saveEmergency(emergency);
-
-        return "redirect:/patient";
+        return emergency;
     }
+
+    @DeleteMapping("patient/{patientId}/emergency/{emergencyId}/delete")
+    public void deleteEmergency(
+            @PathVariable("patientId") Long patientId,
+            @PathVariable("emergencyId") Long emergencyId
+    ) {
+        Long emergencyContact = emergencyService.findEmergencyById(emergencyId);
+        emergencyService.deleteEmergencyContact(emergencyContact);
+    }
+
+//    @PutMapping("/patient/{patientId}/emergency/{emergencyId}")
+//    public Optional<Emergency> updateEmergency(
+//            @RequestBody Emergency emergency,
+//            @PathVariable("patientId") Long patientId,
+//            @PathVariable("emergencyId") Long emergencyId
+//    ) {
+//        Optional<Emergency> updateEmergency = emergencyRepository.findById(emergencyId);
+//        if (updateEmergency.isPresent()) {
+//            updateEmergency.setFirstName(emergency.getFirstName());
+//        }
+//
+//
+//    }
 }
