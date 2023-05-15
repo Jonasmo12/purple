@@ -10,12 +10,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.Optional;
+
 @RestController
+@CrossOrigin
 @AllArgsConstructor
 public class PatientController {
-    @Autowired
+
     private PatientRepository patientRepository;
-    @Autowired
     private PatientService patientService;
 
 
@@ -23,36 +25,17 @@ public class PatientController {
 
     @GetMapping("/login")
     public String login(){
-
         return "login";
     }
 
 //    @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("/patient/{id}")
-    public Patient patient(
-            @PathVariable("id") Long id
-    ) {
-        try {
-            Patient patient = patientRepository.findById(id).get();
-            return patient;
-        } catch (Exception exception) {
-            return null;
-        }
+    public Optional<Patient> patient(@PathVariable("id") Long id) {
+        return patientService.findPatientById(id);
     }
-
-//    @GetMapping("/patient")
-//    public String patientHome(@AuthenticationPrincipal Patient patient, Model model) {
-//        model.addAttribute("patient", patient);
-//        model.addAttribute("emergency", patient.getEmergencies());
-//        model.addAttribute("pageTitle", patient.getUsername().toUpperCase());
-//        return "patient_home";
-//    }
-
 
     @PostMapping("/registration")
     public Patient savePatient(@RequestBody Patient patient) {
-        patientService.calculateAge(patient);
-        patientService.createPatientId(patient);
         patientService.signUpPatient(patient);
         return patient;
     }

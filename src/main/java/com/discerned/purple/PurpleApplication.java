@@ -6,12 +6,12 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 @SpringBootApplication
-public class PurpleApplication extends SpringBootServletInitializer { 
+public class PurpleApplication{
 
-	@Override
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder springApplicationBuilder) {
-		return springApplicationBuilder.sources(PurpleApplication.class);
-	}
+//	@Override
+//    protected SpringApplicationBuilder configure(SpringApplicationBuilder springApplicationBuilder) {
+//		return springApplicationBuilder.sources(PurpleApplication.class);
+//	}
 	
 	public static void main(String[] args) {
 		SpringApplication.run(PurpleApplication.class, args);

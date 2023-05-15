@@ -13,7 +13,7 @@
   <version>0.0.1-SNAPSHOT</version>  
   <name>purple</name>  
   <description>Purple project for Discerned</description>  
-  <packaging>war</packaging>
+<!--  <packaging>war</packaging>-->
   <properties> 
     <java.version>11</java.version>  
   </properties>  
@@ -37,16 +37,21 @@
       <artifactId>postgresql</artifactId>
       <scope>runtime</scope>
     </dependency>
-    <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-tomcat</artifactId>
-        <scope>provided</scope>
-    </dependency>
+<!--    <dependency>-->
+<!--        <groupId>org.springframework.boot</groupId>-->
+<!--        <artifactId>spring-boot-starter-tomcat</artifactId>-->
+<!--        <scope>provided</scope>-->
+<!--    </dependency>-->
     <dependency> 
       <groupId>org.springframework.boot</groupId>  
       <artifactId>spring-boot-starter-test</artifactId>  
       <scope>test</scope> 
-    </dependency> 
+    </dependency>
+    <dependency>
+      <groupId>com.h2database</groupId>
+      <artifactId>h2</artifactId>
+      <scope>test</scope>
+    </dependency>
   
   </dependencies>  
   <build> 

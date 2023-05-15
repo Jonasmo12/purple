@@ -1,12 +1,11 @@
 package com.discerned.purple.emergency;
 
-import com.discerned.purple.patient.Patient;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class EmergencyService {
-    @Autowired
     private final EmergencyRepository emergencyRepository;
 
     public EmergencyService(EmergencyRepository emergencyRepository) {
@@ -14,15 +13,22 @@ public class EmergencyService {
     }
 
     public void saveEmergency(Emergency emergency) {
-        emergencyRepository.save(emergency);
+        emergencyRepository.save(new Emergency(
+                emergency.getFirstName(),
+                emergency.getLastName(),
+                emergency.getRelationship(),
+                emergency.getPhone(),
+                emergency.getPatient()
+        ));
     }
 
-    public Long findEmergencyById(Long emergencyId) {
-        emergencyRepository.findById(emergencyId);
-        return emergencyId;
+    public Optional<Emergency> findEmergencyById(Long emergencyId) {
+        return emergencyRepository.findById(emergencyId);
+
     }
 
-    public void deleteEmergencyContact(Long emergency) {
-        emergencyRepository.deleteById(emergency);
+    public boolean checkEmergencyExists(String emergencyPhone) {
+        return emergencyRepository.existsByPhone(emergencyPhone);
     }
+
 }
