@@ -2,35 +2,30 @@ package com.discerned.purple.emergency;
 
 import com.discerned.purple.patient.Patient;
 import com.discerned.purple.patient.PatientRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
+import com.discerned.purple.patient.PatientService;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Optional;
 import java.util.Set;
 
 @RestController
 public class EmergencyController {
-    @Autowired
     private final EmergencyService emergencyService;
-    @Autowired
-    private final PatientRepository patientRepository;
-    @Autowired
-    private final EmergencyRepository emergencyRepository;
+    private final PatientService patientService;
 
-    public EmergencyController(EmergencyService emergencyService, PatientRepository patientRepository, EmergencyRepository emergencyRepository) {
+    public EmergencyController(
+            EmergencyService emergencyService,
+            PatientService patientService) {
         this.emergencyService = emergencyService;
-        this.patientRepository = patientRepository;
-        this.emergencyRepository = emergencyRepository;
+        this.patientService = patientService;
     }
 
-
     @GetMapping("/patient/{patientId}/emergency")
-    public Set<Emergency> getEmergencies(
-            @PathVariable("patientId") Long patientId
-    ) {
-        Patient patient = patientRepository.findById(patientId).get();
-        return patient.getEmergencies();
+    public Set<Emergency> getEmergencies(@PathVariable("patientId") Long patientId) {
+        Optional<Patient> patient = patientService.findPatientById(patientId);
+        return patient.map(Patient::getEmergencies).orElse(null);
     }
 
     @PostMapping("/patient/{patientId}/emergency/save")
@@ -38,18 +33,14 @@ public class EmergencyController {
             @PathVariable("patientId") Long patientId,
             @RequestBody Emergency emergency
     ) {
-        emergency.setPatient(patientId);
-        emergencyService.saveEmergency(emergency);
-        return emergency;
-    }
-
-    @DeleteMapping("patient/{patientId}/emergency/{emergencyId}/delete")
-    public void deleteEmergency(
-            @PathVariable("patientId") Long patientId,
-            @PathVariable("emergencyId") Long emergencyId
-    ) {
-        Long emergencyContact = emergencyService.findEmergencyById(emergencyId);
-        emergencyService.deleteEmergencyContact(emergencyContact);
+        boolean emergencyContact = emergencyService.checkEmergencyExists(emergency.getPhone());
+        if (emergencyContact) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Emergency Contact already exists");
+        } else {
+            emergency.setPatient(patientId);
+            emergencyService.saveEmergency(emergency);
+            return emergency;
+        }
     }
 
 //    @PutMapping("/patient/{patientId}/emergency/{emergencyId}")

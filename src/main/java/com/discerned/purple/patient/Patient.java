@@ -108,6 +108,12 @@ public class Patient {
         this.phone = phone;
     }
 
+    Patient(UUID patientID, String username, String phone) {
+        this.patientID = patientID;
+        this.username = username;
+        this.phone = phone;
+    }
+
     public Set<Emergency> getEmergencies() {
         return emergencies;
     }

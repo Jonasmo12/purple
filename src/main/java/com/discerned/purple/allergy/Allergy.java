@@ -36,4 +36,9 @@ public class Allergy {
     private LocalDate CreatedDate = LocalDate.now();
     private boolean verified = false;
 
+    public Allergy(String name, LocalDate diagnosedDate) {
+        this.name = name;
+        this.diagnosedDate = diagnosedDate;
+    }
+
 }

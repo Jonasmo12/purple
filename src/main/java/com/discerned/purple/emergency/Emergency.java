@@ -27,6 +27,14 @@ public class Emergency {
     @Column(name = "patient_id")
     private Long patient;
 
+    public Emergency(String firstName, String lastName, String relationship, String phone, Long patient) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.relationship = relationship;
+        this.phone = phone;
+        this.patient = patient;
+    }
+
     public String getFullName() {
         return getFirstName() + " " + getLastName();
     }
