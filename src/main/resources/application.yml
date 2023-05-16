@@ -5,15 +5,21 @@ server:
 
 spring:
   datasource:
-    password: discerneded
-    url: jdbc:postgresql://localhost:5432/discerneded
-    username: discerneded
+    url: jdbc:postgresql://purple-api-db-server.postgres.database.azure.com:5432/postgres?user=jonasmoloto&password=Lethabo2010&sslmode=require
+    password: Lethabo2010
+    username: jonasmoloto
+    driver-class-name: org.postgresql.Driver
+  #    password: discerneded
+#    url: jdbc:postgresql://localhost:5432/discerneded
+#    username: discerneded
+
   jpa:
     hibernate:
-      ddl-auto: create-drop
+#      ddl-auto: create-drop
+      ddl-auto: update
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
+#        dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
     show-sql: true
 
