@@ -37,19 +37,19 @@
       <artifactId>postgresql</artifactId>
       <scope>runtime</scope>
     </dependency>
-<<<<<<< HEAD
-    <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-tomcat</artifactId>
-        <scope>provided</scope>
-    </dependency>
-=======
+<!--<<<<<<< HEAD-->
 <!--    <dependency>-->
 <!--        <groupId>org.springframework.boot</groupId>-->
 <!--        <artifactId>spring-boot-starter-tomcat</artifactId>-->
 <!--        <scope>provided</scope>-->
 <!--    </dependency>-->
->>>>>>> testing
+<!--=======-->
+<!--&lt;!&ndash;    <dependency>&ndash;&gt;-->
+<!--&lt;!&ndash;        <groupId>org.springframework.boot</groupId>&ndash;&gt;-->
+<!--&lt;!&ndash;        <artifactId>spring-boot-starter-tomcat</artifactId>&ndash;&gt;-->
+<!--&lt;!&ndash;        <scope>provided</scope>&ndash;&gt;-->
+<!--&lt;!&ndash;    </dependency>&ndash;&gt;-->
+<!--&gt;>>>>>> testing-->
     <dependency> 
       <groupId>org.springframework.boot</groupId>  
       <artifactId>spring-boot-starter-test</artifactId>  
@@ -60,7 +60,7 @@
       <artifactId>h2</artifactId>
       <scope>test</scope>
     </dependency>
-  
+
   </dependencies>  
   <build> 
     <finalName>${project.artifactId}</finalName>
