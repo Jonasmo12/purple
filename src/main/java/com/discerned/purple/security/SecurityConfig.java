@@ -1,19 +1,15 @@
 package com.discerned.purple.security;
 
 import com.discerned.purple.patient.PatientService;
-import com.discerned.purple.security.jwt.AuthEntryPointJwt;
-import com.discerned.purple.security.jwt.AuthTokenFilter;
+import com.discerned.purple.security.jwt.JwtFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
-import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -26,8 +22,8 @@ public class SecurityConfig {
     private final PatientService patientService;
 
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
-    @Autowired
-    private AuthEntryPointJwt unauthorizedHandler;
+//    @Autowired
+//    private AuthEntryPointJwt unauthorizedHandler;
 
     public SecurityConfig(
             PatientService patientService,
@@ -38,8 +34,8 @@ public class SecurityConfig {
     }
 
     @Bean
-    public AuthTokenFilter authenticationJwtTokenFilter() {
-        return new AuthTokenFilter();
+    public JwtFilter authenticationJwtTokenFilter() {
+        return new JwtFilter();
     }
 
     @Bean
@@ -59,7 +55,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .cors().and().cors().disable()
-                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
+//                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests().antMatchers("/registration").permitAll()
                 .antMatchers("/api/test/**").permitAll()
@@ -70,8 +66,4 @@ public class SecurityConfig {
         return http.build();
 
     }
-
-
-
-
 }
