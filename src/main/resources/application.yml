@@ -5,7 +5,7 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://${db_server}:5432/postgres?user=jonasmoloto&password=Lethabo2010&sslmode=require
+    url: jdbc:postgresql://${db_server}:5432/postgres?user=${db_username}&password=${db_user_password}&sslmode=require
     password: ${db_user_password}
     username: ${db_username}
     driver-class-name: org.postgresql.Driver
