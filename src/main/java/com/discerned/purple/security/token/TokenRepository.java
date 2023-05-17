@@ -7,12 +7,10 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface TokenRepository extends JpaRepository<Token, Integer> {
 
-//    @Query(value = """
-//      select t from Token t inner join User u\s
-//      on t.user.id = u.id\s
-//      where u.id = :id and (t.expired = false or t.revoked = false)\s
-//      """)
-    List<Token> findAllValidTokenByPatient(Integer id);
+    @Query(value = "select t from Token t inner join Patient u \n" +
+                   "on t.id = u.Id \n" +
+                   "where u.Id = :id and (t.expired = false or t.revoked = false) \n")
+    List<Token> findAllValidTokenByPatient(Long id);
 
     Optional<Token> findByToken(String token);
 }

@@ -16,7 +16,7 @@ spring:
   jpa:
     hibernate:
 #      ddl-auto: create-drop
-      ddl-auto: update
+      ddl-auto: create-drop
     properties:
       hibernate:
 #        dialect: org.hibernate.dialect.PostgreSQLDialect
@@ -50,4 +50,4 @@ application:
       refresh-token:
         expiration: 604800000 # 7 days
 
-debug: true
+#debug: true

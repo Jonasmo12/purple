@@ -1,9 +1,9 @@
 package com.discerned.purple.security;
 
 import com.discerned.purple.patient.PatientRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -13,10 +13,12 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
-@RequiredArgsConstructor
 public class ApplicationConfig {
-
     private final PatientRepository patientRepository;
+
+    public ApplicationConfig(@Lazy PatientRepository patientRepository) {
+        this.patientRepository = patientRepository;
+    }
 
     @Bean
     public UserDetailsService userDetailsService() {

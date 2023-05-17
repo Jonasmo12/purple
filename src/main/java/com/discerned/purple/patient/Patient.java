@@ -38,7 +38,7 @@ public class Patient implements UserDetails {
     private LocalDate dob;
     private Integer age;
     @Column(
-            name = "email",
+            name = "username",
             nullable = false,
             columnDefinition = "TEXT"
     )
@@ -82,7 +82,7 @@ public class Patient implements UserDetails {
     )
     private Set<Diagnosed> diagnoses = new HashSet<>();
     private Boolean locked = false;
-    private Boolean enabled = false;
+    private Boolean enabled = true;
 
     public Patient(
             String appUserRole,

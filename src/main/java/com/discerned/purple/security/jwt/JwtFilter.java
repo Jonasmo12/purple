@@ -2,6 +2,7 @@ package com.discerned.purple.security.jwt;
 import com.discerned.purple.patient.PatientService;
 import com.discerned.purple.security.token.TokenRepository;
 import lombok.NonNull;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,13 +18,17 @@ import java.io.IOException;
 
 @Component
 public class JwtFilter extends OncePerRequestFilter {
-    private final PatientService patientService;
     private final JwtService jwtService;
+    private final PatientService patientService;
     private final TokenRepository tokenRepository;
 
-    public JwtFilter(PatientService patientService, JwtService jwtService, TokenRepository tokenRepository) {
-        this.patientService = patientService;
+    public JwtFilter(
+            @Lazy JwtService jwtService,
+            @Lazy PatientService patientService,
+            @Lazy TokenRepository tokenRepository
+    ) {
         this.jwtService = jwtService;
+        this.patientService = patientService;
         this.tokenRepository = tokenRepository;
     }
 
