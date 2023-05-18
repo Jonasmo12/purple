@@ -5,13 +5,13 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://${db_server}:5432/postgres?user=${db_username}&password=${db_user_password}&sslmode=require
-    password: ${db_user_password}
-    username: ${db_username}
+#    url: jdbc:postgresql://${db_server}:5432/postgres?user=${db_username}&password=${db_user_password}&sslmode=require
+#    password: ${db_user_password}
+#    username: ${db_username}
     driver-class-name: org.postgresql.Driver
-  #    password: discerneded
-#    url: jdbc:postgresql://localhost:5432/discerneded
-#    username: discerneded
+    password: discerneded
+    url: jdbc:postgresql://localhost:5432/discerneded
+    username: discerneded
 
   jpa:
     hibernate:
