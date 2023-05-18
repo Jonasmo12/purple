@@ -22,7 +22,7 @@ import java.security.Principal;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "*")
 @RequiredArgsConstructor
 public class PatientController {
     private final PatientService patientService;
@@ -40,7 +40,6 @@ public class PatientController {
 //    public Optional<Patient> patient(@PathVariable("id") Long id) {
 //        return patientService.findPatientById(id);
 //    }
-
     @GetMapping("/patient")
     @ResponseBody
     public UserDetails getPatient(Principal principal) {
