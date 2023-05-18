@@ -22,24 +22,16 @@ import java.security.Principal;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "*", maxAge = 3600L)
 @RequiredArgsConstructor
 public class PatientController {
     private final PatientService patientService;
-
-
-//    @PreAuthorize("hasRole('ROLE_ADMIN')")
 
     @PostMapping("/login")
     public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody Patient patient){
         return ResponseEntity.ok(patientService.authenticate(patient));
     }
 
-//    @PreAuthorize("hasRole('ROLE_USER')")
-//    @GetMapping("/patient/{id}")
-//    public Optional<Patient> patient(@PathVariable("id") Long id) {
-//        return patientService.findPatientById(id);
-//    }
     @GetMapping("/patient")
     @ResponseBody
     public UserDetails getPatient(Principal principal) {

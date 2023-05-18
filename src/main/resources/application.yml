@@ -5,10 +5,10 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://${db_server}:5432/postgres?user=${db_username}&password=${db_user_password}&sslmode=require
-    password: ${db_user_password}
-    username: ${db_username}
-#    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://purple-api-db-server.postgres.database.azure.com:5432/postgres?user=jonasmoloto&password=Lethabo2010&sslmode=require
+    password: Lethabo2010
+    username: jonasmoloto
+    driver-class-name: org.postgresql.Driver
 #    password: discerneded
 #    url: jdbc:postgresql://localhost:5432/discerneded
 #    username: discerneded
@@ -16,10 +16,10 @@ spring:
   jpa:
     hibernate:
 #      ddl-auto: create-drop
-      ddl-auto: validate
+      ddl-auto: update
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
+#        dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
     show-sql: true
 
@@ -45,7 +45,7 @@ spring:
 application:
   security:
     jwt:
-      secret-key: ${secret_jwt}
+      secret-key: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
       expiration: 86400000 # a day
       refresh-token:
         expiration: 604800000 # 7 days
