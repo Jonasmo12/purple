@@ -22,7 +22,6 @@ import java.security.Principal;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin(origins = "*", maxAge = 3600L)
 @RequiredArgsConstructor
 public class PatientController {
     private final PatientService patientService;
@@ -33,7 +32,6 @@ public class PatientController {
     }
 
     @GetMapping("/patient")
-    @ResponseBody
     public UserDetails getPatient(Principal principal) {
         return patientService.loadUserByUsername(principal.getName());
     }
