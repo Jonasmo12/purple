@@ -86,16 +86,6 @@ public class Patient extends User {
     private Boolean enabled = true;
 
     public Patient(
-            String appUserRole,
-            String username,
-            String password
-    ) {
-        this.appUserRole = appUserRole;
-        this.username = username;
-        this.password = password;
-    }
-
-    public Patient(
             UUID patientID,
             String roleUser,
             String gender,
