@@ -2,6 +2,7 @@ package com.discerned.purple.patient;
 
 
 import com.discerned.purple.auth.AuthenticationResponse;
+import com.discerned.purple.auth.UserService;
 import lombok.RequiredArgsConstructor;
 //import org.springframework.security.access.prepost.PreAuthorize;
 //import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -11,25 +12,26 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 
-@RestController
+@RestController(value = "/api/patient")
 @RequiredArgsConstructor
 public class PatientController {
     private final PatientService patientService;
+    private final UserService userService;
 
-//    @PostMapping("/login")
-//    public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody Patient patient){
-//        return ResponseEntity.ok(patientService.authenticate(patient));
-//    }
-//
-//    @GetMapping("/patient")
-//    public UserDetails getPatient(Principal principal) {
-//        return patientService.loadUserByUsername(principal.getName());
-//    }
-//
-//    @PostMapping("/registration")
-//    public ResponseEntity<AuthenticationResponse> register(@RequestBody Patient patient) {
-//        return ResponseEntity.ok(patientService.signUpPatient(patient));
-//    }
+    @PostMapping("/login")
+    public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody Patient patient){
+        return ResponseEntity.ok(userService.authenticate(patient));
+    }
+
+    @GetMapping("/patient")
+    public UserDetails getPatient(Principal principal) {
+        return userService.loadUserByUsername(principal.getName());
+    }
+
+    @PostMapping("/registration")
+    public ResponseEntity<Patient> register(@RequestBody Patient patient) {
+        return ResponseEntity.ok(patientService.signUpPatient(patient));
+    }
 
     @PostMapping("/logout")
     public ResponseEntity<?> logout() {
