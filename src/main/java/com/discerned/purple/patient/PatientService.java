@@ -18,23 +18,14 @@ import java.util.UUID;
 @Service
 public class PatientService {
     private final PatientRepository patientRepository;
-    private final TokenRepository tokenRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
-    private final JwtService jwtService;
-    private final AuthenticationManager authenticationManager;
 
     public PatientService(
             @Lazy PatientRepository patientRepository,
-            @Lazy TokenRepository tokenRepository,
-            @Lazy BCryptPasswordEncoder bCryptPasswordEncoder,
-            @Lazy JwtService jwtService,
-            @Lazy AuthenticationManager authenticationManager
+            @Lazy BCryptPasswordEncoder bCryptPasswordEncoder
     ) {
         this.patientRepository = patientRepository;
-        this.tokenRepository = tokenRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-        this.jwtService = jwtService;
-        this.authenticationManager = authenticationManager;
     }
 
     public void createQRCode() {}
