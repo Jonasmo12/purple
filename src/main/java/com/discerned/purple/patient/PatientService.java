@@ -53,11 +53,6 @@ public class PatientService {
             ));
         }
     }
-
-    public boolean existByPatientID(UUID patientID) {
-        return patientRepository.existsByPatientID(patientID);
-    }
-
     public Optional<Patient> findPatientById(Long id) {
         return patientRepository.findById(id);
     }
