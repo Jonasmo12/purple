@@ -1,6 +1,7 @@
 package com.discerned.purple.patient;
 
 import com.discerned.purple.allergy.Allergy;
+import com.discerned.purple.auth.User;
 import com.discerned.purple.diagnosed.Diagnosed;
 import com.discerned.purple.emergency.Emergency;
 import com.discerned.purple.medication.Medication;
@@ -21,7 +22,7 @@ import java.util.stream.Collectors;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Patient implements UserDetails {
+public class Patient extends User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", updatable = false)
@@ -143,41 +144,4 @@ public class Patient implements UserDetails {
     public void setDiagnoses(Set<Diagnosed> diagnoses) {
         this.diagnoses = diagnoses;
     }
-
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
-
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Arrays.stream(this
-                        .getAppUserRole()
-                        .split(","))
-                .map(SimpleGrantedAuthority::new)
-                .collect(Collectors.toList());
-    }
-
 }
