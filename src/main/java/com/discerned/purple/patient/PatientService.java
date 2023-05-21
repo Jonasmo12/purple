@@ -1,23 +1,16 @@
 package com.discerned.purple.patient;
 
+import com.discerned.purple.auth.AuthenticationResponse;
 import com.discerned.purple.security.jwt.JwtService;
-import com.discerned.purple.security.token.Token;
 import com.discerned.purple.security.token.TokenRepository;
-import com.discerned.purple.security.token.TokenType;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Optional;
 import java.util.UUID;

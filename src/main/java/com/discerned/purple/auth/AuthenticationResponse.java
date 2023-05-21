@@ -1,4 +1,4 @@
-package com.discerned.purple.patient;
+package com.discerned.purple.auth;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;

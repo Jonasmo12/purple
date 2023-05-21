@@ -1,7 +1,5 @@
 package com.discerned.purple.auth;
 
-import com.discerned.purple.patient.AuthenticationResponse;
-import com.discerned.purple.patient.Patient;
 import com.discerned.purple.security.jwt.JwtService;
 import com.discerned.purple.security.token.Token;
 import com.discerned.purple.security.token.TokenRepository;

@@ -1,6 +1,6 @@
 package com.discerned.purple.adminuser;
 
-import com.discerned.purple.patient.AuthenticationResponse;
+import com.discerned.purple.auth.AuthenticationResponse;
 import com.discerned.purple.patient.PatientService;
 import com.discerned.purple.security.jwt.JwtService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
