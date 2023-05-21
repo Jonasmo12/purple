@@ -49,7 +49,12 @@ public class SecurityConfig {
                 .cors().and()
                 .csrf().disable()
                 .authorizeHttpRequests()
-                .regexMatchers("/registration", "/login", "/refresh-token").permitAll()
+                .regexMatchers(
+                        "api/patient/registration",
+                        "api/patient/login",
+                        "/refresh-token"
+                )
+                .permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)

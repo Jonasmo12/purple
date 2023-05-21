@@ -37,12 +37,4 @@ public class PatientController {
     public ResponseEntity<?> logout() {
         return ResponseEntity.ok("logout successful");
     }
-
-//    @PostMapping("/refresh-token")
-//    public void refreshToken(
-//            HttpServletRequest request,
-//            HttpServletResponse response
-//    ) throws IOException {
-//        patientService.refreshToken(request, response);
-//    }
 }
