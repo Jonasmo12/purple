@@ -23,28 +23,11 @@ import java.util.stream.Collectors;
 @Setter
 @NoArgsConstructor
 public class Patient extends User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", updatable = false)
-    private Long Id;
-    @Column(
-            updatable = false,
-            name = "patientID",
-            unique = true
-    )
-    private UUID patientID;
-    private String appUserRole;
+    private String role = "ROLE_USER";
     private String gender;
     @Column(name = "date_of_birth")
     private LocalDate dob;
     private Integer age;
-    @Column(
-            name = "username",
-            nullable = false,
-            columnDefinition = "TEXT"
-    )
-    private String username;
-    private String password;
     private String phone;
     @OneToMany(
         cascade = CascadeType.ALL, 
@@ -82,12 +65,9 @@ public class Patient extends User {
         referencedColumnName = "id"
     )
     private Set<Diagnosed> diagnoses = new HashSet<>();
-    private Boolean locked = false;
-    private Boolean enabled = true;
 
     public Patient(
-            UUID patientID,
-            String roleUser,
+            String role,
             String gender,
             LocalDate dob,
             Integer age,
@@ -95,19 +75,10 @@ public class Patient extends User {
             String password,
             String phone
     ) {
-        this.patientID = patientID;
-        this.appUserRole = roleUser;
+        super(role, username, password);
         this.gender = gender;
         this.dob = dob;
         this.age = age;
-        this.username = username;
-        this.password = password;
-        this.phone = phone;
-    }
-
-    Patient(UUID patientID, String username, String phone) {
-        this.patientID = patientID;
-        this.username = username;
         this.phone = phone;
     }
 
