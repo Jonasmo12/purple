@@ -23,6 +23,10 @@ import java.util.stream.Collectors;
 @Setter
 @NoArgsConstructor
 public class Patient extends User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(updatable = false)
+    private UUID id;
     private String role = "ROLE_USER";
     private String gender;
     @Column(name = "date_of_birth")
