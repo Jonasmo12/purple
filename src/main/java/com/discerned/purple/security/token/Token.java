@@ -1,6 +1,7 @@
 package com.discerned.purple.security.token;
 
 
+import com.discerned.purple.auth.User;
 import com.discerned.purple.patient.Patient;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.UUID;
 
 @Data
 @Builder
@@ -18,7 +20,7 @@ public class Token {
 
     @Id
     @GeneratedValue
-    public Integer id;
+    public UUID id;
 
     @Column(unique = true)
     public String token;
@@ -31,6 +33,6 @@ public class Token {
     public boolean expired;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "patient_id")
-    public Patient patient;
+    @JoinColumn(name = "user_id")
+    public User user;
 }

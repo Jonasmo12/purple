@@ -29,6 +29,16 @@ public class User implements UserDetails {
     private boolean enabled = true;
     private boolean locked = false;
 
+    public User(
+            String role,
+            String username,
+            String password
+    ) {
+        this.role = role;
+        this.username = username;
+        this.password = password;
+    }
+
     @Override
     public boolean isAccountNonExpired() {
         return true;
@@ -64,8 +74,8 @@ public class User implements UserDetails {
                 .collect(Collectors.toList());
     }
 
-    private String getRole() {
-        return this.role;
+    public String getRole() {
+        return role;
     }
 
 }

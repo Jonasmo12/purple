@@ -101,72 +101,72 @@ public class PatientService implements UserDetailsService {
         return patientRepository.findById(id);
     }
 
-    public AuthenticationResponse authenticate(Patient patient) {
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        patient.getUsername(),
-                        patient.getPassword()
-                )
-        );
-        var user = patientRepository.findByUsername(patient.getUsername())
-                .orElseThrow();
-        var jwtToken = jwtService.generateToken(user);
-        var refreshToken = jwtService.generateRefreshToken(user);
-        revokeAllUserTokens(user);
-        saveUserToken(user, jwtToken);
-        return AuthenticationResponse.builder()
-                .accessToken(jwtToken)
-                .refreshToken(refreshToken)
-                .build();
-    }
-
-    private void saveUserToken(Patient patient, String jwtToken) {
-        var token = Token.builder()
-                .patient(patient)
-                .token(jwtToken)
-                .tokenType(TokenType.BEARER)
-                .expired(false)
-                .revoked(false)
-                .build();
-        tokenRepository.save(token);
-    }
-
-    private void revokeAllUserTokens(Patient patient) {
-        var validUserTokens = tokenRepository.findAllValidTokenByPatient(patient.getId());
-        if (validUserTokens.isEmpty())
-            return;
-        validUserTokens.forEach(token -> {
-            token.setExpired(true);
-            token.setRevoked(true);
-        });
-        tokenRepository.saveAll(validUserTokens);
-    }
-
-    public void refreshToken(
-            HttpServletRequest request,
-            HttpServletResponse response
-    ) throws IOException {
-        final String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
-        final String refreshToken;
-        final String userEmail;
-        if (authHeader == null ||!authHeader.startsWith("Bearer ")) {
-            return;
-        }
-        refreshToken = authHeader.substring(7);
-        userEmail = jwtService.extractUsername(refreshToken);
-        if (userEmail != null) {
-            var user = this.patientRepository.findByUsername(userEmail)
-                    .orElseThrow();
-            if (jwtService.isTokenValid(refreshToken, user)) {
-                var accessToken = jwtService.generateToken(user);
-                revokeAllUserTokens(user);
-                saveUserToken(user, accessToken);
-                var authResponse = AuthenticationResponse.builder()
-                        .accessToken(accessToken)
-                        .refreshToken(refreshToken)
-                        .build();
-                new ObjectMapper().writeValue(response.getOutputStream(), authResponse);
-            }
-        }
-    }
+//    public AuthenticationResponse authenticate(Patient patient) {
+//        authenticationManager.authenticate(
+//                new UsernamePasswordAuthenticationToken(
+//                        patient.getUsername(),
+//                        patient.getPassword()
+//                )
+//        );
+//        var user = patientRepository.findByUsername(patient.getUsername())
+//                .orElseThrow();
+//        var jwtToken = jwtService.generateToken(user);
+//        var refreshToken = jwtService.generateRefreshToken(user);
+//        revokeAllUserTokens(user);
+//        saveUserToken(user, jwtToken);
+//        return AuthenticationResponse.builder()
+//                .accessToken(jwtToken)
+//                .refreshToken(refreshToken)
+//                .build();
+//    }
+//
+//    private void saveUserToken(Patient patient, String jwtToken) {
+//        var token = Token.builder()
+//                .patient(patient)
+//                .token(jwtToken)
+//                .tokenType(TokenType.BEARER)
+//                .expired(false)
+//                .revoked(false)
+//                .build();
+//        tokenRepository.save(token);
+//    }
+//
+//    private void revokeAllUserTokens(Patient patient) {
+//        var validUserTokens = tokenRepository.findAllValidTokenByPatient(patient.getId());
+//        if (validUserTokens.isEmpty())
+//            return;
+//        validUserTokens.forEach(token -> {
+//            token.setExpired(true);
+//            token.setRevoked(true);
+//        });
+//        tokenRepository.saveAll(validUserTokens);
+//    }
+//
+//    public void refreshToken(
+//            HttpServletRequest request,
+//            HttpServletResponse response
+//    ) throws IOException {
+//        final String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
+//        final String refreshToken;
+//        final String userEmail;
+//        if (authHeader == null ||!authHeader.startsWith("Bearer ")) {
+//            return;
+//        }
+//        refreshToken = authHeader.substring(7);
+//        userEmail = jwtService.extractUsername(refreshToken);
+//        if (userEmail != null) {
+//            var user = this.patientRepository.findByUsername(userEmail)
+//                    .orElseThrow();
+//            if (jwtService.isTokenValid(refreshToken, user)) {
+//                var accessToken = jwtService.generateToken(user);
+//                revokeAllUserTokens(user);
+//                saveUserToken(user, accessToken);
+//                var authResponse = AuthenticationResponse.builder()
+//                        .accessToken(accessToken)
+//                        .refreshToken(refreshToken)
+//                        .build();
+//                new ObjectMapper().writeValue(response.getOutputStream(), authResponse);
+//            }
+//        }
+//    }
 }

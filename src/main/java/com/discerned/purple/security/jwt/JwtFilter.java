@@ -1,4 +1,5 @@
 package com.discerned.purple.security.jwt;
+import com.discerned.purple.auth.UserService;
 import com.discerned.purple.patient.PatientService;
 import com.discerned.purple.security.token.TokenRepository;
 import lombok.NonNull;
@@ -19,16 +20,16 @@ import java.io.IOException;
 @Component
 public class JwtFilter extends OncePerRequestFilter {
     private final JwtService jwtService;
-    private final PatientService patientService;
+    private final UserService userService;
     private final TokenRepository tokenRepository;
 
     public JwtFilter(
             @Lazy JwtService jwtService,
-            @Lazy PatientService patientService,
+            @Lazy UserService userService,
             @Lazy TokenRepository tokenRepository
     ) {
         this.jwtService = jwtService;
-        this.patientService = patientService;
+        this.userService = userService;
         this.tokenRepository = tokenRepository;
     }
 
@@ -55,7 +56,7 @@ public class JwtFilter extends OncePerRequestFilter {
         jwt = authHeader.substring(7);
         userEmail = jwtService.extractUsername(jwt);
         if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            UserDetails userDetails = this.patientService.loadUserByUsername(userEmail);
+            UserDetails userDetails = this.userService.loadUserByUsername(userEmail);
             var isTokenValid = tokenRepository.findByToken(jwt)
                     .map(t -> !t.isExpired() && !t.isRevoked())
                     .orElse(false);
