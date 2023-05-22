@@ -24,7 +24,7 @@ public class EmergencyController {
     }
 
     @GetMapping("/patient/{patientId}/emergency")
-    public Set<Emergency> getEmergencies(@PathVariable("patientId") Long patientId) {
+    public Set<Emergency> getEmergencies(@PathVariable("patientId") UUID patientId) {
         Optional<Patient> patient = patientService.findPatientById(patientId);
         return patient.map(Patient::getEmergencies).orElse(null);
     }

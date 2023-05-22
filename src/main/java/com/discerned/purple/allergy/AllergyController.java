@@ -25,7 +25,7 @@ public class AllergyController {
 
     @GetMapping("/patient/{patientId}/allergy")
     public Set<Allergy> getAllergies(
-            @PathVariable("patientId") Long patientId
+            @PathVariable("patientId") UUID patientId
     ) {
         Patient patient = patientRepository.findById(patientId).get();
         return patient.getAllergies();

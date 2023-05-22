@@ -1,13 +1,6 @@
 package com.discerned.purple.patient;
 
-import com.discerned.purple.auth.AuthenticationResponse;
-import com.discerned.purple.security.jwt.JwtService;
-import com.discerned.purple.security.token.TokenRepository;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -53,7 +46,7 @@ public class PatientService {
             ));
         }
     }
-    public Optional<Patient> findPatientById(Long id) {
+    public Optional<Patient> findPatientById(UUID id) {
         return patientRepository.findById(id);
     }
 
