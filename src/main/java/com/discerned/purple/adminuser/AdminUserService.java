@@ -17,6 +17,9 @@ public class AdminUserService {
     }
 
     public AdminUser createAdmin(AdminUser adminUser) {
+        if (adminUserRepository.findAdminUserByUsername(adminUser.getUsername()).isPresent()) {
+            throw new IllegalStateException("Username already exists");
+        }
         String encryptedPassword = bCryptPasswordEncoder.encode(adminUser.getPassword());
         adminUser.setPassword(encryptedPassword);
 
