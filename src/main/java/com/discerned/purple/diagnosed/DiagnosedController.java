@@ -12,6 +12,7 @@ import java.util.Set;
 import java.util.UUID;
 
 @RestController
+@RequestMapping("/api/diagnoses")
 public class DiagnosedController {
     private final DiagnosedService diagnosedService;
     private final PatientService patientService;

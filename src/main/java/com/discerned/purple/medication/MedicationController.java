@@ -10,6 +10,7 @@ import java.util.Set;
 import java.util.UUID;
 
 @RestController
+@RequestMapping("/api/medication")
 public class MedicationController {
     private final MedicationService medicationService;
     private final PatientRepository patientRepository;

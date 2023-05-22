@@ -61,6 +61,11 @@ public class SecurityConfig {
                         "/api/administration/users/logout"
                 )
                 .permitAll()
+                .regexMatchers(
+                        "/api/allergies/*",
+                        "api/medication/*",
+                        "api/diagnoses/*"
+                ).hasRole("ROLE_ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)

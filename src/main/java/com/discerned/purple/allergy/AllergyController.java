@@ -9,10 +9,9 @@ import java.util.UUID;
 
 @CrossOrigin
 @RestController
+@RequestMapping("/api/allergies")
 public class AllergyController {
-    @Autowired
     private final AllergyService allergyService;
-    @Autowired
     private final PatientRepository patientRepository;
 
     public AllergyController(
@@ -23,7 +22,7 @@ public class AllergyController {
         this.patientRepository = patientRepository;
     }
 
-    @GetMapping("/patient/{patientId}/allergy")
+    @GetMapping("/{patientId}/allergy")
     public Set<Allergy> getAllergies(
             @PathVariable("patientId") UUID patientId
     ) {
@@ -31,7 +30,7 @@ public class AllergyController {
         return patient.getAllergies();
     }
 
-    @PostMapping("/patient/{patientId}/allergy/save")
+    @PostMapping("/{patientId}/allergy/save")
     public Allergy saveAllergy(
             @PathVariable("patientId") UUID patientId,
             @RequestBody Allergy allergy
