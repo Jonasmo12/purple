@@ -19,20 +19,20 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Service
-public class UserService implements UserDetailsService {
-    private final UserRepository userRepository;
+public class PurpleUserService implements UserDetailsService {
+    private final PurpleUserRepository purpleUserRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
     private final TokenRepository tokenRepository;
 
-    public UserService(
-            UserRepository userRepository,
+    public PurpleUserService(
+            PurpleUserRepository purpleUserRepository,
             BCryptPasswordEncoder bCryptPasswordEncoder,
             JwtService jwtService,
             AuthenticationManager authenticationManager,
             TokenRepository tokenRepository) {
-        this.userRepository = userRepository;
+        this.purpleUserRepository = purpleUserRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.jwtService = jwtService;
         this.authenticationManager = authenticationManager;
@@ -40,7 +40,7 @@ public class UserService implements UserDetailsService {
     }
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findByUsername(username)
+        return purpleUserRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException(String.format("%s not found", username)));
     }
 
@@ -48,7 +48,7 @@ public class UserService implements UserDetailsService {
         String encodePassword = bCryptPasswordEncoder.encode(user.getPassword());
         user.setPassword(encodePassword);
 
-        return userRepository.save(new PurpleUser(
+        return purpleUserRepository.save(new PurpleUser(
                 user.getRole(),
                 user.getUsername(),
                 user.getPassword()
@@ -62,7 +62,7 @@ public class UserService implements UserDetailsService {
                         user.getPassword()
                 )
         );
-        var findUser = userRepository.findByUsername(user.getUsername())
+        var findUser = purpleUserRepository.findByUsername(user.getUsername())
                 .orElseThrow();
         var jwtToken = jwtService.generateToken(findUser);
         var refreshToken = jwtService.generateRefreshToken(findUser);
@@ -109,7 +109,7 @@ public class UserService implements UserDetailsService {
         refreshToken = authHeader.substring(7);
         userEmail = jwtService.extractUsername(refreshToken);
         if (userEmail != null) {
-            var user = this.userRepository.findByUsername(userEmail)
+            var user = this.purpleUserRepository.findByUsername(userEmail)
                     .orElseThrow();
             if (jwtService.isTokenValid(refreshToken, user)) {
                 var accessToken = jwtService.generateToken(user);

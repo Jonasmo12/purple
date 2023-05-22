@@ -1,5 +1,7 @@
 package com.discerned.purple.security;
 
+import com.discerned.purple.auth.PurpleUser;
+import com.discerned.purple.auth.PurpleUserRepository;
 import com.discerned.purple.patient.PatientRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,15 +17,17 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 
 @Configuration
 public class ApplicationConfig {
-    private final PatientRepository patientRepository;
+    private final PurpleUserRepository purpleUserRepository;
 
-    public ApplicationConfig(@Lazy PatientRepository patientRepository) {
-        this.patientRepository = patientRepository;
+    public ApplicationConfig(
+            @Lazy PurpleUserRepository purpleUserRepository
+    ) {
+        this.purpleUserRepository = purpleUserRepository;
     }
 
     @Bean
     public UserDetailsService userDetailsService() {
-        return username -> patientRepository.findByUsername(username)
+        return username -> purpleUserRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 

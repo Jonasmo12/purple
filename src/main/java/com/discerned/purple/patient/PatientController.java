@@ -2,7 +2,7 @@ package com.discerned.purple.patient;
 
 
 import com.discerned.purple.auth.AuthenticationResponse;
-import com.discerned.purple.auth.UserService;
+import com.discerned.purple.auth.PurpleUserService;
 import lombok.RequiredArgsConstructor;
 //import org.springframework.security.access.prepost.PreAuthorize;
 //import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -17,16 +17,16 @@ import java.security.Principal;
 @RequiredArgsConstructor
 public class PatientController {
     private final PatientService patientService;
-    private final UserService userService;
+    private final PurpleUserService purpleUserService;
 
     @PostMapping("/login")
     public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody Patient patient){
-        return ResponseEntity.ok(userService.authenticate(patient));
+        return ResponseEntity.ok(purpleUserService.authenticate(patient));
     }
 
     @GetMapping("/patient")
     public UserDetails getPatient(Principal principal) {
-        return userService.loadUserByUsername(principal.getName());
+        return purpleUserService.loadUserByUsername(principal.getName());
     }
 
     @PostMapping("/registration")
