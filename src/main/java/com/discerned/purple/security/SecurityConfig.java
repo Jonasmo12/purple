@@ -52,7 +52,10 @@ public class SecurityConfig {
                 .regexMatchers(
                         "/registration",
                         "/login",
-                        "/refresh-token"
+                        "/refresh-token",
+
+                        "/registration_admin",
+                        "/authenticate_admin"
                 )
                 .permitAll()
                 .anyRequest().authenticated()
