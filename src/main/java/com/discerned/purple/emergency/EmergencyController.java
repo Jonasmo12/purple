@@ -9,6 +9,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Optional;
 import java.util.Set;
+import java.util.UUID;
 
 @RestController
 public class EmergencyController {
@@ -30,7 +31,7 @@ public class EmergencyController {
 
     @PostMapping("/patient/{patientId}/emergency/save")
     public Emergency saveEmergency(
-            @PathVariable("patientId") Long patientId,
+            @PathVariable("patientId") UUID patientId,
             @RequestBody Emergency emergency
     ) {
         boolean emergencyContact = emergencyService.checkEmergencyExists(emergency.getPhone());

@@ -14,13 +14,13 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Entity
-@Table
+@Table(name = "purple_user")
 @Getter
 @Setter
 @NoArgsConstructor
-public class User implements UserDetails {
+public class PurpleUser implements UserDetails {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(updatable = false)
     private UUID id;
     private String role;
@@ -29,7 +29,7 @@ public class User implements UserDetails {
     private boolean enabled = true;
     private boolean locked = false;
 
-    public User(
+    public PurpleUser(
             String role,
             String username,
             String password

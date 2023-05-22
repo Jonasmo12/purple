@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface TokenRepository extends JpaRepository<Token, Integer> {
 
-    @Query(value = "select t from Token t inner join User u \n" +
+    @Query(value = "select t from Token t inner join PurpleUser u \n" +
                    "on t.id = u.id \n" +
                    "where u.id = :id and (t.expired = false or t.revoked = false) \n")
     List<Token> findAllValidTokenByUser(UUID id);

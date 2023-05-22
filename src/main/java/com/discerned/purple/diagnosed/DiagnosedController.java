@@ -9,6 +9,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Optional;
 import java.util.Set;
+import java.util.UUID;
 
 @RestController
 public class DiagnosedController {
@@ -33,7 +34,7 @@ public class DiagnosedController {
     }
 
     @PostMapping("/patient/{patientId}/diagnosed/save")
-    public Diagnosed saveDiagnosed(@PathVariable("patientId") Long patientId, @RequestBody Diagnosed diagnosed) {
+    public Diagnosed saveDiagnosed(@PathVariable("patientId") UUID patientId, @RequestBody Diagnosed diagnosed) {
         diagnosed.setPatient(patientId);
         diagnosedService.saveDiagnosed(diagnosed);
         return diagnosed;

@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.UUID;
 
 @Entity(name = "Allergy")
 @Table(name = "allergy")
@@ -28,7 +29,7 @@ public class Allergy {
     )
     private Long Id;
     @Column(name = "patient_id")
-    private Long patient;
+    private UUID patient;
     @Column(nullable = false)
     private String name;
     @Column(name = "diagnosed_date")

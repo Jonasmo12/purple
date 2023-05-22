@@ -3,26 +3,20 @@ server:
     include-message: always
     include-binding-errors: always
 
-cors:
-  allowed-origins: "*"
-  allowed-methods: "*"
-  allowed-headers: "*"
-  exposed-headers: "*"
-
 spring:
   datasource:
-    url: jdbc:postgresql://purple-api-db-server.postgres.database.azure.com:5432/postgres?user=jonasmoloto&password=Lethabo2010&sslmode=require
-    password: Lethabo2010
-    username: jonasmoloto
+#    url: jdbc:postgresql://purple-api-db-server.postgres.database.azure.com:5432/postgres?user=jonasmoloto&password=Lethabo2010&sslmode=require
+#    password: Lethabo2010
+#    username: jonasmoloto
     driver-class-name: org.postgresql.Driver
-#    password: discerneded
-#    url: jdbc:postgresql://localhost:5432/discerneded
-#    username: discerneded
+    password: discerneded
+    url: jdbc:postgresql://localhost:5432/discerneded
+    username: discerneded
 
   jpa:
     hibernate:
-#      ddl-auto: create-drop
-      ddl-auto: update
+      ddl-auto: create-drop
+#      ddl-auto: update
     properties:
       hibernate:
 #        dialect: org.hibernate.dialect.PostgreSQLDialect

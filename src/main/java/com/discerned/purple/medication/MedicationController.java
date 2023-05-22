@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 import java.util.Set;
+import java.util.UUID;
 
 @RestController
 public class MedicationController {
@@ -33,7 +34,7 @@ public class MedicationController {
 
     @PostMapping("/patient/{patientId}/medication/save")
     public Medication saveMedication(
-            @PathVariable("patientId") Long patientId,
+            @PathVariable("patientId") UUID patientId,
             @RequestBody Medication medication
     ) {
         medication.setPatient(patientId);

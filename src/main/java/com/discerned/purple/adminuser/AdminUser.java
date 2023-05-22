@@ -13,11 +13,11 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 
 @Entity
-@Table(name = "Admin User")
+@Table(name = "admin_user")
 @Getter
 @Setter
 @NoArgsConstructor
-public class AdminUser implements UserDetails {
+public class AdminUser {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", updatable = false)
@@ -45,48 +45,5 @@ public class AdminUser implements UserDetails {
         this.title = title;
         this.username = username;
         this.password = password;
-    }
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Arrays.stream(this
-                        .role()
-                        .split(","))
-                .map(SimpleGrantedAuthority::new)
-                .collect(Collectors.toList());
-    }
-
-    private String role() {
-        return this.role;
-    }
-
-    @Override
-    public String getPassword() {
-        return this.password;
-    }
-
-    @Override
-    public String getUsername() {
-        return this.username;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
     }
 }

@@ -44,18 +44,18 @@ public class UserService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException(String.format("%s not found", username)));
     }
 
-    public User createUser(User user) {
+    public PurpleUser createUser(PurpleUser user) {
         String encodePassword = bCryptPasswordEncoder.encode(user.getPassword());
         user.setPassword(encodePassword);
 
-        return userRepository.save(new User(
+        return userRepository.save(new PurpleUser(
                 user.getRole(),
                 user.getUsername(),
                 user.getPassword()
         ));
     }
 
-    public AuthenticationResponse authenticate(User user) {
+    public AuthenticationResponse authenticate(PurpleUser user) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         user.getUsername(),
@@ -74,9 +74,9 @@ public class UserService implements UserDetailsService {
                 .build();
     }
 
-    private void saveUserToken(User user, String jwtToken) {
+    private void saveUserToken(PurpleUser purpleUser, String jwtToken) {
         var token = Token.builder()
-                .user(user)
+                .purpleUser(purpleUser)
                 .token(jwtToken)
                 .tokenType(TokenType.BEARER)
                 .expired(false)
@@ -85,7 +85,7 @@ public class UserService implements UserDetailsService {
         tokenRepository.save(token);
     }
 
-    private void revokeAllUserTokens(User user) {
+    private void revokeAllUserTokens(PurpleUser user) {
         var validUserTokens = tokenRepository.findAllValidTokenByUser(user.getId());
         if (validUserTokens.isEmpty())
             return;

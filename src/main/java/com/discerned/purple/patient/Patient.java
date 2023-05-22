@@ -1,30 +1,28 @@
 package com.discerned.purple.patient;
 
 import com.discerned.purple.allergy.Allergy;
-import com.discerned.purple.auth.User;
+import com.discerned.purple.auth.PurpleUser;
 import com.discerned.purple.diagnosed.Diagnosed;
 import com.discerned.purple.emergency.Emergency;
 import com.discerned.purple.medication.Medication;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
 
 @Entity
 @Table(name = "Patient")
 @Getter
 @Setter
 @NoArgsConstructor
-public class Patient extends User {
+public class Patient extends PurpleUser {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(updatable = false)
     private UUID id;
     private String role = "ROLE_USER";

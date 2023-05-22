@@ -32,7 +32,6 @@
 //        Integer age = LocalDate.now().getYear() - dob.getYear();
 //        //given
 //        Patient patient = new Patient(
-//                patientId,
 //                "ROLE_USER",
 //                "Male",
 //                dob,
@@ -44,35 +43,35 @@
 //        );
 //        patientRepository.save(patient);
 //        //when
-//        boolean userExists = patientRepository.existsByPatientID(patientId);
+//        String userExists = String.valueOf(patientRepository.findByUsername("jonas@email.com"));
 //        //then
 //
-//        assertThat(userExists).isTrue();
+//        assertThat(userExists).isEqualTo(userExists);
 //        assertThat(patient.getAge()).isEqualTo(30);
 //        Set<Allergy> allergies = new HashSet<>();
 //        assertThat(patient.getAllergies()).isEqualTo(allergies);
 //    }
 //
 //
-//    @Test
-//    void createAllergies() {
-//        UUID patientID = UUID.randomUUID();
-//        Patient patient = new Patient(
-//                patientID,
-//                "bango@email.com",
-//                "0659157229"
-//        );
-//        patientRepository.save(patient);
-//        LocalDate diagnosedDate = LocalDate.of(2018, 12, 15);
-//        Allergy allergy = new Allergy(
-//                "Nuts",
-//                diagnosedDate
-//        );
-//        allergyRepository.save(allergy);
-//
-//
-//        allergy.setPatient(patient.getId());
-//    }
+////    @Test
+////    void createAllergies() {
+////        UUID patientID = UUID.randomUUID();
+////        Patient patient = new Patient(
+////                patientID,
+////                "bango@email.com",
+////                "0659157229"
+////        );
+////        patientRepository.save(patient);
+////        LocalDate diagnosedDate = LocalDate.of(2018, 12, 15);
+////        Allergy allergy = new Allergy(
+////                "Nuts",
+////                diagnosedDate
+////        );
+////        allergyRepository.save(allergy);
+////
+////
+////        allergy.setPatient(patient.getId());
+////    }
 //
 //
 //

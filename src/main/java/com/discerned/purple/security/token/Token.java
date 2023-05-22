@@ -1,8 +1,7 @@
 package com.discerned.purple.security.token;
 
 
-import com.discerned.purple.auth.User;
-import com.discerned.purple.patient.Patient;
+import com.discerned.purple.auth.PurpleUser;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -33,6 +32,6 @@ public class Token {
     public boolean expired;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    public User user;
+    @JoinColumn(name = "purpleuser_id")
+    public PurpleUser purpleUser;
 }

@@ -5,6 +5,7 @@ import com.discerned.purple.patient.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.Set;
+import java.util.UUID;
 
 @CrossOrigin
 @RestController
@@ -32,7 +33,7 @@ public class AllergyController {
 
     @PostMapping("/patient/{patientId}/allergy/save")
     public Allergy saveAllergy(
-            @PathVariable("patientId") Long patientId,
+            @PathVariable("patientId") UUID patientId,
             @RequestBody Allergy allergy
     ) {
         allergy.setPatient(patientId);

@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.UUID;
 
 @Entity
 @Table(name = "diagnosed")
@@ -21,6 +22,6 @@ public class Diagnosed {
     private String description;
     private LocalDate CreatedDate = LocalDate.now();
     @Column(name = "patient_id")
-    private Long patient;
+    private UUID patient;
     private boolean verified = false;
 }

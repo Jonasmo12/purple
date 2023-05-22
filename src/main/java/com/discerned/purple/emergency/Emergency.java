@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.UUID;
 
 @Entity
 @Table(name = "Emergency")
@@ -25,9 +26,9 @@ public class Emergency {
     private String relationship;
     private String phone;
     @Column(name = "patient_id")
-    private Long patient;
+    private UUID patient;
 
-    public Emergency(String firstName, String lastName, String relationship, String phone, Long patient) {
+    public Emergency(String firstName, String lastName, String relationship, String phone, UUID patient) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.relationship = relationship;
