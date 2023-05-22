@@ -2,9 +2,12 @@ package com.discerned.purple.adminuser;
 
 import com.discerned.purple.auth.AuthenticationResponse;
 import com.discerned.purple.auth.PurpleUserService;
+import com.discerned.purple.patient.Patient;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @CrossOrigin
 @RestController
@@ -22,5 +25,10 @@ public class AdminUserController {
     @PostMapping("/authenticate")
     public ResponseEntity<AuthenticationResponse> adminUserAuthentication(@RequestBody AdminUser adminUser) {
         return ResponseEntity.ok(purpleUserService.authenticate(adminUser));
+    }
+
+    @GetMapping("/patient/{patientId}")
+    public ResponseEntity<?> adminGetPatient(@RequestParam("patientId") UUID patientId) {
+        return ResponseEntity.ok(adminUserService.getPatient(patientId));
     }
 }

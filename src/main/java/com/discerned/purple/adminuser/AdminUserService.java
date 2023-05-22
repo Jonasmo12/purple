@@ -7,6 +7,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class AdminUserService {
@@ -42,8 +43,8 @@ public class AdminUserService {
         ));
     }
 
-    public Patient getPatient(Patient patient) throws UsernameNotFoundException {
-        return patientRepository.findById(patient.getId())
-                .orElseThrow(() -> new UsernameNotFoundException(String.format("%s does not exist", patient.getId())));
+    public Patient getPatient(UUID patientId) throws UsernameNotFoundException {
+        return patientRepository.findById(patientId)
+                .orElseThrow(() -> new UsernameNotFoundException(String.format("%s does not exist", patientId)));
     }
 }
