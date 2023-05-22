@@ -4,24 +4,22 @@ import com.discerned.purple.auth.AuthenticationResponse;
 import com.discerned.purple.auth.PurpleUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin
 @RestController
+@RequestMapping("/api/administration/users")
 @RequiredArgsConstructor
 public class AdminUserController {
     private final AdminUserService adminUserService;
     private final PurpleUserService purpleUserService;
 
-    @PostMapping("/registration_admin")
+    @PostMapping("/register")
     public AdminUser adminUserRegistration(@RequestBody AdminUser adminUser) {
         return adminUserService.createAdmin(adminUser);
     }
 
-    @PostMapping("/authenticate_admin")
+    @PostMapping("/authenticate")
     public ResponseEntity<AuthenticationResponse> adminUserAuthentication(@RequestBody AdminUser adminUser) {
         return ResponseEntity.ok(purpleUserService.authenticate(adminUser));
     }

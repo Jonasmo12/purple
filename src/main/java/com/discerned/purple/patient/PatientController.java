@@ -14,6 +14,7 @@ import java.security.Principal;
 
 @CrossOrigin
 @RestController
+@RequestMapping("/api/patients")
 @RequiredArgsConstructor
 public class PatientController {
     private final PatientService patientService;
@@ -29,7 +30,7 @@ public class PatientController {
         return purpleUserService.loadUserByUsername(principal.getName());
     }
 
-    @PostMapping("/registration")
+    @PostMapping("/register")
     public ResponseEntity<Patient> register(@RequestBody Patient patient) {
         return ResponseEntity.ok(patientService.signUpPatient(patient));
     }
