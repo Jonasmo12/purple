@@ -52,8 +52,10 @@ public class SecurityConfig {
                 .regexMatchers(
                         "/registration",
                         "/login",
-                        "/refresh-token",
-
+                        "/refresh-token"
+                )
+                .permitAll()
+                .regexMatchers(
                         "/registration_admin",
                         "/authenticate_admin"
                 )
