@@ -43,8 +43,7 @@ public class AdminUserService {
         ));
     }
 
-    public Patient getPatient(UUID patientId) throws UsernameNotFoundException {
-        return patientRepository.findById(patientId)
-                .orElseThrow(() -> new UsernameNotFoundException(String.format("%s does not exist", patientId)));
+    public Optional<Patient> getPatient(UUID patientId) throws UsernameNotFoundException {
+        return patientRepository.findById(patientId);
     }
 }

@@ -57,7 +57,7 @@ public class SecurityConfig {
                 .permitAll()
                 .regexMatchers(
                         "/api/administration/users/register",
-                        "/api/administration/users/login",
+                        "/api/administration/users/authenticate",
                         "/api/administration/users/logout"
                 )
                 .permitAll()

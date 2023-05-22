@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @CrossOrigin
@@ -28,7 +29,11 @@ public class AdminUserController {
     }
 
     @GetMapping("/patient/{patientId}")
-    public ResponseEntity<?> adminGetPatient(@RequestParam("patientId") UUID patientId) {
-        return ResponseEntity.ok(adminUserService.getPatient(patientId));
+    public Optional<Patient> adminGetPatient(@PathVariable("patientId") UUID patientId) {
+        if (adminUserService.getPatient(patientId).isPresent()) {
+            return adminUserService.getPatient(patientId);
+        } else {
+            throw new IllegalStateException("Patient not found");
+        }
     }
 }
