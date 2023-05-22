@@ -12,7 +12,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 
-@RestController(value = "/api/patient")
+@CrossOrigin
+@RestController
 @RequiredArgsConstructor
 public class PatientController {
     private final PatientService patientService;

@@ -1,35 +1,27 @@
 package com.discerned.purple.adminuser;
 
+import com.discerned.purple.auth.PurpleUser;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.stream.Collectors;
+import java.util.UUID;
 
 @Entity
 @Table(name = "admin_user")
 @Getter
 @Setter
 @NoArgsConstructor
-public class AdminUser {
+public class AdminUser extends PurpleUser {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", updatable = false)
-    private Long Id;
-    private String role;
+    @Column(updatable = false)
+    private UUID Id;
+    private String role = "ROLE_ADMIN";
     private String firstName;
     private String lastName;
     private String title;
-    private String username;
-    private String password;
-    private Boolean locked = false;
-    private Boolean enabled = true;
 
     public AdminUser(
             String role,
@@ -39,11 +31,9 @@ public class AdminUser {
             String username,
             String password
     ) {
-        this.role = role;
+        super(role, username, password);
         this.firstName = firstName;
         this.lastName = lastName;
         this.title = title;
-        this.username = username;
-        this.password = password;
     }
 }
