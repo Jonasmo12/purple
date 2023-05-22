@@ -50,14 +50,15 @@ public class SecurityConfig {
                 .csrf().disable()
                 .authorizeHttpRequests()
                 .regexMatchers(
-                        "/registration",
-                        "/login",
-                        "/refresh-token"
+                        "/api/patients/register",
+                        "/api/patients/login",
+                        "/api/patients/logout"
                 )
                 .permitAll()
                 .regexMatchers(
-                        "/registration_admin",
-                        "/authenticate_admin"
+                        "/api/administration/users/register",
+                        "/api/administration/users/login",
+                        "/api/administration/users/logout"
                 )
                 .permitAll()
                 .anyRequest().authenticated()
