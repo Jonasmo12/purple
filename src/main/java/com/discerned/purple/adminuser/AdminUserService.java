@@ -1,19 +1,27 @@
 package com.discerned.purple.adminuser;
 
+import com.discerned.purple.patient.Patient;
+import com.discerned.purple.patient.PatientRepository;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class AdminUserService {
     private final AdminUserRepository adminUserRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final PatientRepository patientRepository;
 
     public AdminUserService(
             AdminUserRepository adminUserRepository,
-            BCryptPasswordEncoder bCryptPasswordEncoder
+            BCryptPasswordEncoder bCryptPasswordEncoder,
+            PatientRepository patientRepository
     ) {
         this.adminUserRepository = adminUserRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.patientRepository = patientRepository;
     }
 
     public AdminUser createAdmin(AdminUser adminUser) {
@@ -32,5 +40,10 @@ public class AdminUserService {
                     adminUser.getUsername(),
                     adminUser.getPassword()
         ));
+    }
+
+    public Patient getPatient(Patient patient) throws UsernameNotFoundException {
+        return patientRepository.findById(patient.getId())
+                .orElseThrow(() -> new UsernameNotFoundException(String.format("%s does not exist", patient.getId())));
     }
 }
