@@ -43,7 +43,8 @@ public class AdminUserService {
         ));
     }
 
-    public Optional<Patient> getPatient(UUID patientId) throws UsernameNotFoundException {
-        return patientRepository.findById(patientId);
+    public Patient getPatient(UUID patientId) throws IllegalStateException {
+        return patientRepository.findById(patientId)
+                .orElseThrow(() -> new IllegalStateException(patientId + " patient ID not found"));
     }
 }

@@ -29,11 +29,8 @@ public class AdminUserController {
     }
 
     @GetMapping("/patient/{patientId}")
-    public Optional<Patient> adminGetPatient(@PathVariable("patientId") UUID patientId) {
-        if (adminUserService.getPatient(patientId).isPresent()) {
+    public Patient adminGetPatient(@PathVariable("patientId") UUID patientId) {
             return adminUserService.getPatient(patientId);
-        } else {
-            throw new IllegalStateException("Patient not found");
         }
     }
 }
