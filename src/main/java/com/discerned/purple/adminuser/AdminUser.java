@@ -9,7 +9,7 @@ import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
-@Table(name = "admin_user")
+@Table(name = "AdminUser")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -17,7 +17,7 @@ public class AdminUser extends PurpleUser {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(updatable = false)
-    private UUID Id;
+    private UUID id;
     private String role = "ROLE_ADMIN";
     private String firstName;
     private String lastName;
