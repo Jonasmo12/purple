@@ -27,7 +27,7 @@ public class Allergy {
             name = "id",
             updatable = false
     )
-    private Long Id;
+    private Long id;
     @Column(name = "patient_id")
     private UUID patient;
     @Column(nullable = false)
