@@ -43,9 +43,12 @@ public class AllergyController {
     @PutMapping("/{patientId}/allergy/{allergyId}/update")
     public ResponseEntity<?> updateAllergy(
             @PathVariable("patientId") UUID patientId,
-            @PathVariable("allergyId") Long allergyId
+            @PathVariable("allergyId") Long allergyId,
+            @RequestBody Allergy allergyData
     ) {
         var allergy = allergyService.findById(allergyId);
+        allergy.setName(allergyData.getName());
+        allergy.setDiagnosedDate(allergyData.getDiagnosedDate());
         allergy.setPatient(patientId);
         return ResponseEntity.ok(allergyService.saveAllergy(allergy));
     }
