@@ -37,7 +37,7 @@ public class AllergyController {
             @RequestBody Allergy allergy
     ) {
         allergy.setPatient(patientId);
-        return allergyService.saveAllergy(allergy);
+        return allergyService.save(allergy);
     }
 
     @PutMapping("/{patientId}/allergy/{allergyId}/update")
@@ -48,9 +48,13 @@ public class AllergyController {
     ) {
         var allergy = allergyService.findById(allergyId);
         allergy.setName(allergyData.getName());
-        allergy.setDiagnosedDate(allergyData.getDiagnosedDate());
+        allergy.setDateDiagnosed(allergyData.getDateDiagnosed());
+        allergy.setSymptoms(allergyData.getSymptoms());
+        allergy.setSeverityOfReaction(allergyData.getSeverityOfReaction());
+        allergy.setDescriptionOfReaction(allergyData.getDescriptionOfReaction());
+        allergy.setWhatToAvoid(allergyData.getWhatToAvoid());
         allergy.setPatient(patientId);
-        return ResponseEntity.ok(allergyService.saveAllergy(allergy));
+        return ResponseEntity.ok(allergyService.save(allergy));
     }
 
     @DeleteMapping("/{patientId}/{allergyId}/delete")

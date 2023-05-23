@@ -32,14 +32,31 @@ public class Allergy {
     private UUID patient;
     @Column(nullable = false)
     private String name;
-    @Column(name = "diagnosed_date")
-    private LocalDate diagnosedDate;
+    @Column(name = "date_diagnosed")
+    private LocalDate dateDiagnosed;
+    private String symptoms;
+    @Column(name = "severity_of_reaction")
+    private String severityOfReaction;
+    @Column(name = "description_of_reaction")
+    private String descriptionOfReaction;
+    @Column(name = "what_to_avoid")
+    private String whatToAvoid;
     private LocalDate CreatedDate = LocalDate.now();
-    private boolean verified = false;
 
-    public Allergy(String name, LocalDate diagnosedDate) {
+    public Allergy(
+            String name,
+            LocalDate dateDiagnosed,
+            String symptoms,
+            String severityOfReaction,
+            String descriptionOfReaction,
+            String whatToAvoid
+    ) {
         this.name = name;
-        this.diagnosedDate = diagnosedDate;
+        this.dateDiagnosed = dateDiagnosed;
+        this.symptoms = symptoms;
+        this.severityOfReaction = severityOfReaction;
+        this.descriptionOfReaction = descriptionOfReaction;
+        this.whatToAvoid = whatToAvoid;
     }
 
 }
