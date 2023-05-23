@@ -63,8 +63,8 @@ public class SecurityConfig {
                 .permitAll()
                 .regexMatchers(
                         "/api/allergies/*",
-                        "api/medication/*",
-                        "api/diagnoses/*"
+                        "/api/medication/*",
+                        "/api/diagnoses/*"
                 ).hasRole("ROLE_ADMIN")
                 .anyRequest().authenticated()
                 .and()
