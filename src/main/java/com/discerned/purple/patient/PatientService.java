@@ -46,8 +46,9 @@ public class PatientService {
             ));
         }
     }
-    public Optional<Patient> findPatientById(UUID id) {
-        return patientRepository.findById(id);
+    public Patient findPatientById(UUID id) throws IllegalStateException {
+        return patientRepository.findById(id)
+                .orElseThrow(() -> new IllegalStateException("Patient not found"));
     }
 
 }

@@ -45,6 +45,6 @@ public class AdminUserService {
 
     public Patient getPatient(UUID patientId) throws IllegalStateException {
         return patientRepository.findById(patientId)
-                .orElseThrow(() -> new IllegalStateException(patientId + " patient ID not found"));
+                .orElseThrow(() -> new IllegalStateException(patientId + " ID not found"));
     }
 }

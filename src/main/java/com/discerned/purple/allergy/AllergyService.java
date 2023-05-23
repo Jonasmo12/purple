@@ -18,11 +18,18 @@ public class AllergyService {
         return allergyRepository.findAll();
     }
 
-    public void deleteAllergy(Long allergyID){
-        allergyRepository.deleteById(allergyID);
+    public Allergy deleteAllergy(Long allergyID){
+       return allergyRepository.deleteById(allergyID);
     }
 
-    public void saveAllergy(Allergy allergy) {
-        allergyRepository.save(allergy);
+    public Allergy saveAllergy(Allergy allergy) {
+        return allergyRepository.save(allergy);
     }
+
+    public Allergy findById(Long allergyId) {
+        return allergyRepository.findById(allergyId)
+                .orElseThrow(() -> new IllegalStateException("allergy not found"));
+    }
+
+
 }
