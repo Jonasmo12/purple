@@ -7,7 +7,6 @@ import java.util.List;
 
 @Service
 public class AllergyService {
-    @Autowired
     public final AllergyRepository allergyRepository;
 
     public AllergyService(AllergyRepository allergyRepository) {
@@ -18,8 +17,8 @@ public class AllergyService {
         return allergyRepository.findAll();
     }
 
-    public Allergy deleteAllergy(Long allergyID){
-       return allergyRepository.deleteById(allergyID);
+    public void deleteAllergy(Long id) {
+        allergyRepository.deleteById(id);
     }
 
     public Allergy saveAllergy(Allergy allergy) {

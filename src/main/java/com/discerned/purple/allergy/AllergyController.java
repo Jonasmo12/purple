@@ -1,13 +1,10 @@
 package com.discerned.purple.allergy;
 
 import com.discerned.purple.patient.Patient;
-import com.discerned.purple.patient.PatientRepository;
 import com.discerned.purple.patient.PatientService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
@@ -58,6 +55,8 @@ public class AllergyController {
             @PathVariable("patientId") UUID patientId,
             @PathVariable("allergyId") Long allergyId
     ) {
-        return ResponseEntity.ok(allergyService.deleteAllergy(allergyId));
+        var allergy = allergyService.findById(allergyId);
+        allergyService.deleteAllergy(allergyId);
+        return ResponseEntity.ok(allergy.getName() + " has been deleted");
     }
 }
