@@ -29,8 +29,8 @@ public class MedicationController {
     public Set<Medication> getMedications(
             @PathVariable("patientId") UUID patientId
     ) {
-        Optional<Patient> patient = patientService.findPatientById(patientId);
-        return patient.map(Patient::getMedications).orElse(null);
+        var patient = patientService.findPatientById(patientId);
+        return patient.getMedications();
     }
 
     @PostMapping("/patient/{patientId}/medication/save")

@@ -26,12 +26,8 @@ public class DiagnosedController {
 
     @GetMapping("/patient/{patientId}/diagnosed")
     public Set<Diagnosed> getDiagnoses(@PathVariable("patientId") UUID patientId) {
-        Optional<Patient> patient = patientService.findPatientById(patientId);
-        if (patient.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Patient not found");
-        } else {
-            return patient.get().getDiagnoses();
-        }
+        var patient = patientService.findPatientById(patientId);
+        return patient.getDiagnoses();
     }
 
     @PostMapping("/patient/{patientId}/diagnosed/save")
