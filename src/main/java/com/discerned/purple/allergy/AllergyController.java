@@ -46,15 +46,8 @@ public class AllergyController {
             @PathVariable("allergyId") Long allergyId,
             @RequestBody Allergy allergyData
     ) {
-        var allergy = allergyService.findById(allergyId);
-        allergy.setName(allergyData.getName());
-        allergy.setDateDiagnosed(allergyData.getDateDiagnosed());
-        allergy.setSymptoms(allergyData.getSymptoms());
-        allergy.setSeverityOfReaction(allergyData.getSeverityOfReaction());
-        allergy.setDescriptionOfReaction(allergyData.getDescriptionOfReaction());
-        allergy.setWhatToAvoid(allergyData.getWhatToAvoid());
-        allergy.setPatient(patientId);
-        return ResponseEntity.ok(allergyService.save(allergy));
+        allergyData.setPatient(patientId);
+        return ResponseEntity.ok(allergyService.update(allergyId, allergyData));
     }
 
     @DeleteMapping("/{patientId}/{allergyId}/delete")

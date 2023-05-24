@@ -26,6 +26,18 @@ public class AllergyService {
         return allergyRepository.save(allergy);
     }
 
+    public Allergy update(Long id, Allergy allergy) {
+        allergyRepository.findById(id).ifPresent(savedAllergy -> {
+            savedAllergy.setName(allergy.getName());
+            savedAllergy.setDateDiagnosed(allergy.getDateDiagnosed());
+            savedAllergy.setSymptoms(allergy.getSymptoms());
+            savedAllergy.setSeverityOfReaction(allergy.getSeverityOfReaction());
+            savedAllergy.setWhatToAvoid(allergy.getWhatToAvoid());
+            allergyRepository.save(savedAllergy);
+        });
+        return allergy;
+    }
+
     public Allergy findById(Long allergyId) {
         return allergyRepository.findById(allergyId)
                 .orElseThrow(() -> new IllegalStateException("allergy not found"));

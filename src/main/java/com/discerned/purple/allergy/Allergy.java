@@ -37,8 +37,6 @@ public class Allergy {
     private String symptoms;
     @Column(name = "severity_of_reaction")
     private String severityOfReaction;
-    @Column(name = "description_of_reaction")
-    private String descriptionOfReaction;
     @Column(name = "what_to_avoid")
     private String whatToAvoid;
     private LocalDate CreatedDate = LocalDate.now();
@@ -48,14 +46,12 @@ public class Allergy {
             LocalDate dateDiagnosed,
             String symptoms,
             String severityOfReaction,
-            String descriptionOfReaction,
             String whatToAvoid
     ) {
         this.name = name;
         this.dateDiagnosed = dateDiagnosed;
         this.symptoms = symptoms;
         this.severityOfReaction = severityOfReaction;
-        this.descriptionOfReaction = descriptionOfReaction;
         this.whatToAvoid = whatToAvoid;
     }
 
